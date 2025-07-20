@@ -1,4 +1,4 @@
-const API_BASE = '/tasks';
+const API_BASE = 'http://localhost:5000/tasks';
 
 function isoToLocal(iso) {
     if (!iso) return '';
