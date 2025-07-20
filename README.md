@@ -13,7 +13,9 @@ backend
     schemas.py # Contains the data validation schemas
 frontend
 ```
-
+Running the server
+For backend: ```python -m backend.app```
+For Frontend ```python frontend/serve.py```
 
 Challenge Details
 ```
