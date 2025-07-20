@@ -1,11 +1,16 @@
-from flask import request, jsonify
-from .app import app, get_db
 
-@app.route('/ping')
+from flask import request, jsonify, Blueprint
+from .db import get_db
+
+routes = Blueprint('routes', __name__)
+
+
+@routes.route('/ping')
 def ping():
     return 'pong', 200
 
-@app.route('/tasks/<int:task_id>', methods=['GET'])
+
+@routes.route('/tasks/<int:task_id>', methods=['GET'])
 def get_task(task_id):
     db = get_db()
     task = db.execute('SELECT * FROM tasks WHERE id = ?', (task_id,)).fetchone()
@@ -13,13 +18,15 @@ def get_task(task_id):
         return jsonify({'error': 'Task not found'}), 404
     return jsonify(dict(task)), 200
 
-@app.route('/tasks', methods=['GET'])
+
+@routes.route('/tasks', methods=['GET'])
 def get_all_tasks():
     db = get_db()
     tasks = db.execute('SELECT * FROM tasks').fetchall()
     return jsonify([dict(task) for task in tasks]), 200
 
-@app.route('/tasks/<int:task_id>/status', methods=['PATCH'])
+
+@routes.route('/tasks/<int:task_id>/status', methods=['PATCH'])
 def update_task_status(task_id):
     if not request.is_json:
         return jsonify({'error': 'Request must be JSON'}), 400
@@ -34,7 +41,7 @@ def update_task_status(task_id):
         return jsonify({'error': 'Task not found'}), 404
     return jsonify({'message': 'Status updated'}), 200
 
-@app.route('/tasks/<int:task_id>', methods=['DELETE'])
+@routes.route('/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
     db = get_db()
     cur = db.execute('DELETE FROM tasks WHERE id = ?', (task_id,))
@@ -43,7 +50,7 @@ def delete_task(task_id):
         return jsonify({'error': 'Task not found'}), 404
     return jsonify({'message': 'Task deleted'}), 200
 
-@app.route('/tasks', methods=['POST'])
+@routes.route('/tasks', methods=['POST'])
 def create_task():
     if not request.is_json:
         return jsonify({'error': 'Request must be JSON'}), 400
