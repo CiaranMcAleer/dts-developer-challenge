@@ -1,4 +1,22 @@
-# DTS Developer Technical Test
+DTS Developer Technical Test Submission - Ciaran McAleer
+---
+This Fork contains my submission to the original challenge. The backend has been built using python with Flask for simplicity.
+
+## Project Structure
+```
+backend
+    __init__.py # This is used to mark the backend directory as a package
+    app.py # Set up the database used to store tasks.
+    requirements.txt # List of dependencies for the backend
+    routes.py # Contains the API endpoints
+    schemas.py # Contains the data validation schemas
+frontend
+```
+
+
+Challenge Details
+```
+# DTS Developer Technical Test Submission - Ciaran McAleer
 
 ## Objective
 To assess your ability to build a simple API and frontend using best coding practices.
@@ -43,3 +61,4 @@ You can use any language you are comfortable with or our own stack:
 - Include a helpful `README.md`!
 
 Happy coding!
+```
